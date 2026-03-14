@@ -24,7 +24,7 @@ export default function FileViewer({ file }: FileViewerProps) {
     <button
       onClick={handleCopy}
       className="absolute top-4 right-4 p-2 bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-slate-200 rounded-md transition-all backdrop-blur-md z-10 border border-slate-700/50"
-      title="複製到剪貼簿"
+      title="複製 628 DNA"
     >
       {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
     </button>

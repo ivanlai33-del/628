@@ -107,7 +107,7 @@ export default function App() {
               <Terminal className="w-4 h-4 text-emerald-500/80" />
             </div>
             <div>
-              <h1 className="font-semibold tracking-tight text-slate-100 text-sm">628SP 戰略指揮終端</h1>
+              <h1 className="font-semibold tracking-tight text-slate-100 text-sm">628 戰略指揮終端</h1>
               <div className="text-[10px] text-emerald-500/60 font-mono tracking-widest uppercase">Clinical Command Center</div>
             </div>
           </div>
@@ -115,7 +115,7 @@ export default function App() {
             <div className="hidden md:flex items-center gap-4 text-[10px] font-mono text-slate-500 uppercase tracking-widest">
               <span className="flex items-center gap-1.5"><Zap className="w-3 h-3" /> Protocol Engine Active</span>
               <span className="w-1 h-1 rounded-full bg-slate-800" />
-              <span>v1.5.0-Tactical</span>
+              <span>v2.0-Sequestrated</span>
             </div>
           </div>
         </div>
@@ -130,7 +130,7 @@ export default function App() {
               <h2 className="text-xs font-semibold text-slate-200 uppercase tracking-wider">戰術目標輸入 (Tactical Objective)</h2>
             </div>
             <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
-              請在此輸入您的專案願景。指揮中心將掛載 628SP 臨床基因，透過六角色協同運作，精準鎖定 20% 的關鍵戰場。
+              請在此輸入您的專案願景。指揮中心將掛載 628 臨床基因，透過六角色協同運作，精準鎖定 20% 的關鍵戰場。
             </p>
           </div>
 
@@ -160,7 +160,7 @@ export default function App() {
                 className="flex-1 flex items-center justify-center gap-2 text-slate-400 hover:text-emerald-400/80 bg-slate-900/40 hover:bg-slate-900/60 border border-white/5 py-3 rounded-lg text-xs font-semibold transition-all shadow-sm active:scale-[0.98] disabled:opacity-30"
               >
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>628SP 臨床修復/優化</span>
+                <span>628 臨床修復/優化</span>
               </button>
 
               <button
@@ -173,7 +173,7 @@ export default function App() {
                 ) : (
                   <Send className="w-3.5 h-3.5" />
                 )}
-                <span>合成 628SP 戰術架構</span>
+                <span>合成 628 戰術架構</span>
               </button>
             </div>
           </div>
@@ -214,7 +214,7 @@ export default function App() {
         </div>
 
         {/* Right Column: Output */}
-        <div className="lg:col-span-8 flex flex-col min-h-[600px]">
+        <div className="lg:col-span-8 flex flex-col min-h-[600px] select-none" onContextMenu={(e) => e.preventDefault()}>
           <AnimatePresence mode="wait">
             {files.length === 0 && !isGenerating ? (
               <motion.div 
@@ -315,7 +315,7 @@ export default function App() {
 
                 <div className="px-8 py-4 border-t border-white/5 bg-slate-900/20 flex items-center justify-between text-[10px] font-mono text-slate-600">
                   <div className="flex items-center gap-4">
-                    <span>STRUCTURE: 628SP PROTOCOL</span>
+                    <span>STRUCTURE: 628 PROTOCOL</span>
                     <span className="w-1 h-1 rounded-full bg-slate-800" />
                     <span>ENCODING: UTF-8</span>
                   </div>
