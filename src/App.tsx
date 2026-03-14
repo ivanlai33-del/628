@@ -107,15 +107,15 @@ export default function App() {
               <Terminal className="w-4 h-4 text-emerald-500/80" />
             </div>
             <div>
-              <h1 className="font-semibold tracking-tight text-slate-100 text-sm">628SP 臨床架構師</h1>
-              <div className="text-[10px] text-emerald-500/60 font-mono tracking-widest uppercase">Clinical Protocol Engine</div>
+              <h1 className="font-semibold tracking-tight text-slate-100 text-sm">628SP 戰略指揮終端</h1>
+              <div className="text-[10px] text-emerald-500/60 font-mono tracking-widest uppercase">Clinical Command Center</div>
             </div>
           </div>
           <div className="flex items-center gap-6">
             <div className="hidden md:flex items-center gap-4 text-[10px] font-mono text-slate-500 uppercase tracking-widest">
-              <span className="flex items-center gap-1.5"><Zap className="w-3 h-3" /> GPT-4o Online</span>
+              <span className="flex items-center gap-1.5"><Zap className="w-3 h-3" /> Protocol Engine Active</span>
               <span className="w-1 h-1 rounded-full bg-slate-800" />
-              <span>v1.2.0-clinical</span>
+              <span>v1.5.0-Tactical</span>
             </div>
           </div>
         </div>
@@ -127,10 +127,10 @@ export default function App() {
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              <h2 className="text-xs font-semibold text-slate-200 uppercase tracking-wider">專案定義輸入</h2>
+              <h2 className="text-xs font-semibold text-slate-200 uppercase tracking-wider">戰術目標輸入 (Tactical Objective)</h2>
             </div>
             <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
-              請輸入您的專案大方向。架構師將應用 628SP 深度角色權責與 80/20 打擊法則，為您合成精準的開發藍圖。
+              請在此輸入您的專案願景。指揮中心將掛載 628SP 臨床基因，透過六角色協同運作，精準鎖定 20% 的關鍵戰場。
             </p>
           </div>
 
@@ -139,7 +139,7 @@ export default function App() {
               <textarea
                 value={isOptimizing ? displayDescription : description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="在此輸入專案描述..."
+                placeholder="例如：構建一個具備高度自動化的 AI 跨境電商引擎..."
                 className="w-full h-full bg-slate-900/20 border border-white/5 rounded-xl p-5 text-[13px] text-slate-400 placeholder:text-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500/30 focus:border-emerald-500/30 transition-all resize-none leading-relaxed font-mono custom-scrollbar"
                 disabled={isGenerating || isOptimizing}
               />
@@ -147,7 +147,7 @@ export default function App() {
                 <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-[1px] flex items-center justify-center rounded-xl pointer-events-none">
                   <div className="flex items-center gap-2 text-emerald-500/80 text-[10px] font-mono tracking-widest uppercase">
                     <Loader2 className="w-3 h-3 animate-spin" />
-                    Optimizing Strategy...
+                    Clinical Optimizing...
                   </div>
                 </div>
               )}
@@ -160,7 +160,7 @@ export default function App() {
                 className="flex-1 flex items-center justify-center gap-2 text-slate-400 hover:text-emerald-400/80 bg-slate-900/40 hover:bg-slate-900/60 border border-white/5 py-3 rounded-lg text-xs font-semibold transition-all shadow-sm active:scale-[0.98] disabled:opacity-30"
               >
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>AI 智能臨床優化</span>
+                <span>628SP 臨床修復/優化</span>
               </button>
 
               <button
@@ -173,7 +173,7 @@ export default function App() {
                 ) : (
                   <Send className="w-3.5 h-3.5" />
                 )}
-                <span>開始架構生成</span>
+                <span>合成 628SP 戰術架構</span>
               </button>
             </div>
           </div>
@@ -227,9 +227,9 @@ export default function App() {
                 <div className="w-16 h-16 rounded-full bg-slate-900/40 flex items-center justify-center mb-6 border border-white/5 shadow-inner">
                   <Terminal className="w-6 h-6 text-slate-700" />
                 </div>
-                <p className="text-sm text-slate-600 font-medium tracking-wide">等待臨床數據輸入...</p>
-                <div className="mt-4 flex gap-2">
-                   {[1,2,3].map(i => <div key={i} className="w-1 h-1 rounded-full bg-slate-800" />)}
+                <p className="text-sm text-slate-600 font-medium tracking-wide font-mono uppercase tracking-[0.2em]">等待臨床指令輸入...</p>
+                <div className="mt-4 flex gap-2 text-[10px] text-slate-800 font-mono">
+                  [ STANDBY MODE ]
                 </div>
               </motion.div>
             ) : isGenerating ? (
@@ -250,7 +250,7 @@ export default function App() {
                     <Loader2 className="w-6 h-6 text-emerald-500/60 animate-spin" />
                   </div>
                 </div>
-                <p className="text-xs text-slate-400 font-mono tracking-[0.3em] uppercase animate-pulse">Synthesizing DNA...</p>
+                <p className="text-xs text-slate-400 font-mono tracking-[0.3em] uppercase animate-pulse">Synthesizing Clinical DNA...</p>
               </motion.div>
             ) : (
               <motion.div 
@@ -273,7 +273,7 @@ export default function App() {
                         }`}
                       >
                         {getFileIcon(file.name)}
-                        <span className="relative z-10">{file.name}</span>
+                        <span className="relative z-10 font-mono">{file.name}</span>
                         {activeFile === file.name && (
                           <motion.div 
                             layoutId="activeTab"
@@ -286,10 +286,10 @@ export default function App() {
                   <div className="pr-4 py-1">
                     <button
                       onClick={handleDownloadZip}
-                      className="flex items-center gap-2 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-slate-300 bg-slate-900/50 hover:bg-slate-800 hover:text-white rounded-lg border border-white/5 transition-all active:scale-95 shadow-lg"
+                      className="flex items-center gap-2 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-slate-300 bg-slate-900/50 hover:bg-slate-800 hover:text-white rounded-lg border border-white/5 transition-all active:scale-95 shadow-lg group/btn"
                     >
-                      <Download className="w-3.5 h-3.5" />
-                      <span>Export Repo</span>
+                      <Download className="w-3.5 h-3.5 group-hover/btn:text-emerald-400 transition-colors" />
+                      <span>Export DNA Repo</span>
                     </button>
                   </div>
                 </div>
@@ -315,13 +315,13 @@ export default function App() {
 
                 <div className="px-8 py-4 border-t border-white/5 bg-slate-900/20 flex items-center justify-between text-[10px] font-mono text-slate-600">
                   <div className="flex items-center gap-4">
-                    <span>STRUCTURE: 628SP ALPHA</span>
+                    <span>STRUCTURE: 628SP PROTOCOL</span>
                     <span className="w-1 h-1 rounded-full bg-slate-800" />
                     <span>ENCODING: UTF-8</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Shield className="w-3 h-3" />
-                    SYSTEM STABLE
+                    <Shield className="w-3 h-3 text-emerald-500/40" />
+                    COMMAND STABLE
                   </div>
                 </div>
               </motion.div>
