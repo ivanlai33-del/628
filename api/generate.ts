@@ -48,7 +48,7 @@ III. Required Files
 - RULES.md
 - TASKS.json
 - TASKS_OVERVIEW.md
-- PERSONA_VIEWS.md
+- ADVANTAGE_VIEWS.md
 
 IV. Format
 Wrap each file in [FILE: filename] ... [END FILE] markers.
