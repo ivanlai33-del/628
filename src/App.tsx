@@ -147,7 +147,7 @@ export default function App() {
                 <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-[1px] flex items-center justify-center rounded-xl pointer-events-none">
                   <div className="flex items-center gap-2 text-emerald-500/80 text-[10px] font-mono tracking-widest uppercase">
                     <Loader2 className="w-3 h-3 animate-spin" />
-                    Smart Optimizing...
+                    Synthesizing Strategy...
                   </div>
                 </div>
               )}
@@ -160,7 +160,7 @@ export default function App() {
                 className="flex-1 flex items-center justify-center gap-2 text-slate-400 hover:text-emerald-400/80 bg-slate-900/40 hover:bg-slate-900/60 border border-white/5 py-3 rounded-lg text-xs font-semibold transition-all shadow-sm active:scale-[0.98] disabled:opacity-30"
               >
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>628SP 智能優化</span>
+                <span>628SP 戰略合成優化</span>
               </button>
 
               <button
@@ -227,7 +227,7 @@ export default function App() {
                 <div className="w-16 h-16 rounded-full bg-slate-900/40 flex items-center justify-center mb-6 border border-white/5 shadow-inner">
                   <Terminal className="w-6 h-6 text-slate-700" />
                 </div>
-                <p className="text-sm text-slate-600 font-medium tracking-wide font-mono uppercase tracking-[0.2em]">等待整合指令輸入...</p>
+                <p className="text-sm text-slate-600 font-medium tracking-wide font-mono uppercase tracking-[0.2em]">等待戰略指令載入...</p>
                 <div className="mt-4 flex gap-2 text-[10px] text-slate-800 font-mono">
                   [ STANDBY MODE ]
                 </div>
