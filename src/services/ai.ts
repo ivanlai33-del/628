@@ -1,11 +1,7 @@
-import OpenAI from "openai";
-
-// Note: In client-side code, typically you'd hit an API route to avoid exposing keys,
-// but following the existing pattern which uses process.env (Vite/dotenv style).
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "",
-  dangerouslyAllowBrowser: true // Required for client-side usage in this prototype
-});
+export interface GeneratedFile {
+  name: string;
+  content: string;
+}
 
 const SYSTEM_INSTRUCTION = `
 You are the brain behind a dark, minimalist, mysterious, modern project-planning web app.
@@ -220,63 +216,37 @@ Then proceed to generate all six files anyway, making assumptions explicit in PR
 Assumptions made due to limited input: …
 `;
 
-export interface GeneratedFile {
-  name: string;
-  content: string;
+async function callApi(action: string, data: any) {
+  const response = await fetch('/api/generate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action, ...data }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || 'API request failed');
+  }
+
+  return response.json();
 }
 
 export async function optimizeProjectDescription(description: string): Promise<string> {
-  try {
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        {
-          role: "system",
-          content: "You are an expert project manager and software architect. Please optimize, structure, and elaborate on the following project description to make it more comprehensive, clear, and professional. Output ONLY the optimized text in Traditional Chinese (繁體中文), without any conversational filler or markdown code blocks wrapping the whole response."
-        },
-        {
-          role: "user",
-          content: `Original Description:\n${description}`
-        }
-      ],
-      temperature: 0.7,
-    });
-    return response.choices[0].message.content || description;
-  } catch (error) {
-    console.error("Error optimizing description:", error);
-    throw new Error("Failed to optimize description.");
-  }
+  const result = await callApi('optimize', { description });
+  return result.text || description;
 }
 
-export async function generateProjectArchitecture(
-  description: string
-): Promise<GeneratedFile[]> {
-  try {
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        {
-          role: "system",
-          content: SYSTEM_INSTRUCTION
-        },
-        {
-          role: "user",
-          content: description
-        }
-      ],
-      temperature: 0.7,
-    });
-
-    const text = response.choices[0].message.content;
-    if (!text) {
-      throw new Error("No response generated");
-    }
-
-    return parseFiles(text);
-  } catch (error) {
-    console.error("Error generating architecture:", error);
-    throw error;
+export async function generateProjectArchitecture(description: string): Promise<GeneratedFile[]> {
+  const result = await callApi('generate', { 
+    description, 
+    systemInstruction: SYSTEM_INSTRUCTION 
+  });
+  
+  if (!result.text) {
+    throw new Error("No response generated");
   }
+
+  return parseFiles(result.text);
 }
 
 function parseFiles(text: string): GeneratedFile[] {

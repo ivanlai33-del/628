@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Markdown from 'react-markdown';
 import { Copy, Check } from 'lucide-react';
-import { GeneratedFile } from '../services/gemini';
+import { GeneratedFile } from '../services/ai';
 
 interface FileViewerProps {
   file: GeneratedFile;
@@ -23,7 +23,7 @@ export default function FileViewer({ file }: FileViewerProps) {
   const copyButton = (
     <button
       onClick={handleCopy}
-      className="absolute top-4 right-4 p-2 bg-slate-800/50 hover:bg-slate-700 text-slate-400 hover:text-slate-200 rounded-md transition-colors backdrop-blur-sm"
+      className="absolute top-4 right-4 p-2 bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-slate-200 rounded-md transition-all backdrop-blur-md z-10 border border-slate-700/50"
       title="複製到剪貼簿"
     >
       {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
@@ -42,7 +42,7 @@ export default function FileViewer({ file }: FileViewerProps) {
     return (
       <div className="relative group">
         {copyButton}
-        <pre className="font-mono text-xs text-slate-300 bg-slate-900/50 p-4 rounded-lg border border-slate-800/50 overflow-x-auto">
+        <pre className="font-mono text-[11px] leading-relaxed text-slate-400 bg-slate-900/30 p-6 rounded-xl border border-white/5 overflow-x-auto selection:bg-slate-800 selection:text-slate-100">
           <code>{formattedJson}</code>
         </pre>
       </div>
@@ -52,7 +52,13 @@ export default function FileViewer({ file }: FileViewerProps) {
   return (
     <div className="relative group">
       {copyButton}
-      <div className="markdown-body">
+      <div className="prose prose-invert prose-slate prose-sm max-w-none 
+        prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-slate-200
+        prose-p:text-slate-400 prose-p:leading-relaxed
+        prose-li:text-slate-400
+        prose-strong:text-slate-300
+        prose-code:text-slate-300 prose-code:bg-slate-900/50 prose-code:px-1 prose-code:rounded
+        prose-pre:bg-slate-900/50 prose-pre:border prose-pre:border-white/5">
         <Markdown>{file.content}</Markdown>
       </div>
     </div>

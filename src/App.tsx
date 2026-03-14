@@ -1,17 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FileText, Loader2, Send, Terminal, Code2, Users, Layout, Database, BookOpen, Shield, Download, Sparkles } from 'lucide-react';
+import { FileText, Loader2, Send, Terminal, Code2, Users, Layout, Database, BookOpen, Shield, Download, Sparkles, BarChart3, Target, Zap } from 'lucide-react';
 import JSZip from 'jszip';
 import { generateProjectArchitecture, optimizeProjectDescription, GeneratedFile } from './services/ai';
 import FileViewer from './components/FileViewer';
 
 export default function App() {
   const [description, setDescription] = useState('');
+  const [displayDescription, setDisplayDescription] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [files, setFiles] = useState<GeneratedFile[]>([]);
   const [activeFile, setActiveFile] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Typewriter effect for optimized description
+  const typeText = (text: string) => {
+    let i = 0;
+    setDisplayDescription('');
+    const timer = setInterval(() => {
+      if (i < text.length) {
+        setDisplayDescription((prev) => prev + text.charAt(i));
+        i++;
+      } else {
+        clearInterval(timer);
+      }
+    }, 10);
+  };
+
+  useEffect(() => {
+    setDisplayDescription(description);
+  }, [description && !isOptimizing]);
 
   const handleOptimize = async () => {
     if (!description.trim()) return;
@@ -20,6 +39,7 @@ export default function App() {
     try {
       const optimized = await optimizeProjectDescription(description);
       setDescription(optimized);
+      typeText(optimized);
     } catch (err) {
       setError(err instanceof Error ? err.message : '優化失敗，請稍後再試');
     } finally {
@@ -79,84 +99,114 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="border-b border-slate-800/50 bg-slate-950/50 backdrop-blur-sm sticky top-0 z-10">
+    <div className="min-h-screen flex flex-col selection:bg-slate-800 selection:text-slate-100">
+      <header className="border-b border-white/5 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded bg-slate-900 border border-slate-800 flex items-center justify-center">
-              <Terminal className="w-4 h-4 text-slate-400" />
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-slate-800 to-slate-900 border border-white/10 flex items-center justify-center shadow-inner">
+              <Terminal className="w-4 h-4 text-emerald-500/80" />
             </div>
-            <h1 className="font-medium tracking-tight text-slate-100">六角色專案架構師</h1>
+            <div>
+              <h1 className="font-semibold tracking-tight text-slate-100 text-sm">628SP 臨床架構師</h1>
+              <div className="text-[10px] text-emerald-500/60 font-mono tracking-widest uppercase">Clinical Protocol Engine</div>
+            </div>
           </div>
-          <div className="text-xs font-mono text-slate-500">v1.0.0 // 80:20</div>
+          <div className="flex items-center gap-6">
+            <div className="hidden md:flex items-center gap-4 text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+              <span className="flex items-center gap-1.5"><Zap className="w-3 h-3" /> GPT-4o Online</span>
+              <span className="w-1 h-1 rounded-full bg-slate-800" />
+              <span>v1.2.0-clinical</span>
+            </div>
+          </div>
         </div>
       </header>
 
-      <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-10 grid grid-cols-1 lg:grid-cols-12 gap-10">
         {/* Left Column: Input */}
-        <div className="lg:col-span-4 flex flex-col gap-6 h-full">
-          <div className="space-y-2 flex-shrink-0">
-            <h2 className="text-sm font-medium text-slate-200">專案定義</h2>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              請描述您的專案。架構師將應用六大角色與 80/20 法則，為您生成結構化的專案庫。
+        <div className="lg:col-span-4 flex flex-col gap-8">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              <h2 className="text-xs font-semibold text-slate-200 uppercase tracking-wider">專案定義輸入</h2>
+            </div>
+            <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
+              請輸入您的專案大方向。架構師將應用 628SP 深度角色權責與 80/20 打擊法則，為您合成精準的開發藍圖。
             </p>
           </div>
 
-          <div className="flex-1 flex flex-col gap-4 min-h-[300px]">
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="例如：一個使用本地優先儲存並透過 CRDT 同步的極簡習慣追蹤器..."
-              className="flex-1 w-full bg-slate-900/50 border border-slate-800 rounded-lg p-4 text-sm text-slate-300 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-slate-600 focus:border-slate-600 transition-all resize-none"
-              disabled={isGenerating || isOptimizing}
-            />
-            <div className="flex items-center justify-between flex-shrink-0">
+          <div className="flex-1 flex flex-col gap-5 min-h-[350px]">
+            <div className="relative flex-1 group">
+              <textarea
+                value={isOptimizing ? displayDescription : description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="在此輸入專案描述..."
+                className="w-full h-full bg-slate-900/20 border border-white/5 rounded-xl p-5 text-[13px] text-slate-400 placeholder:text-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500/30 focus:border-emerald-500/30 transition-all resize-none leading-relaxed font-mono custom-scrollbar"
+                disabled={isGenerating || isOptimizing}
+              />
+              {isOptimizing && (
+                <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-[1px] flex items-center justify-center rounded-xl pointer-events-none">
+                  <div className="flex items-center gap-2 text-emerald-500/80 text-[10px] font-mono tracking-widest uppercase">
+                    <Loader2 className="w-3 h-3 animate-spin" />
+                    Optimizing Strategy...
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center gap-3">
               <button
                 onClick={handleOptimize}
                 disabled={isGenerating || isOptimizing || !description.trim()}
-                className="flex items-center gap-2 text-slate-400 hover:text-slate-200 px-3 py-2 rounded-md text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 flex items-center justify-center gap-2 text-slate-400 hover:text-emerald-400/80 bg-slate-900/40 hover:bg-slate-900/60 border border-white/5 py-3 rounded-lg text-xs font-semibold transition-all shadow-sm active:scale-[0.98] disabled:opacity-30"
               >
-                {isOptimizing ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Sparkles className="w-4 h-4" />
-                )}
-                <span>Ai智能優化</span>
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>AI 智能臨床優化</span>
               </button>
 
               <button
                 onClick={handleGenerate}
                 disabled={isGenerating || isOptimizing || !description.trim()}
-                className="flex items-center gap-2 bg-slate-700 text-slate-100 px-4 py-2 rounded-md text-sm font-medium hover:bg-slate-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-[0_0_15px_rgba(51,65,85,0.5)] hover:shadow-[0_0_20px_rgba(71,85,105,0.6)]"
+                className="flex-1 flex items-center justify-center gap-2 bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 py-3 rounded-lg text-xs font-semibold transition-all shadow-lg shadow-emerald-500/5 active:scale-[0.98] disabled:opacity-30"
               >
                 {isGenerating ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>架構生成中...</span>
-                  </>
+                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
                 ) : (
-                  <>
-                    <Send className="w-4 h-4" />
-                    <span>開始生成</span>
-                  </>
+                  <Send className="w-3.5 h-3.5" />
                 )}
+                <span>開始架構生成</span>
               </button>
             </div>
           </div>
 
           {error && (
-            <div className="p-4 bg-red-950/20 border border-red-900/50 rounded-lg text-xs text-red-400 flex-shrink-0">
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="p-4 bg-red-500/5 border border-red-500/20 rounded-xl text-[11px] text-red-400 font-medium"
+            >
               {error}
-            </div>
+            </motion.div>
           )}
 
-          <div className="mt-auto pt-8 border-t border-slate-800/50 flex-shrink-0">
-            <h3 className="text-xs font-medium text-slate-400 mb-3 uppercase tracking-wider">六大角色 (The Six Personas)</h3>
-            <div className="grid grid-cols-2 gap-2">
-              {['指揮官 (Commander)', '工程 (Engineering)', '研究 (Research)', '體驗/流程 (UX/Flow)', '數據/財務 (Data/Finance)', '內容 (Content)'].map((persona) => (
-                <div key={persona} className="flex items-center gap-2 text-xs text-slate-500">
-                  <div className="w-1 h-1 rounded-full bg-slate-700" />
-                  {persona}
+          {/* Analytics Dashboard */}
+          <div className="space-y-4 pt-6 mt-auto border-t border-white/5">
+            <div className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">
+              <BarChart3 className="w-3 h-3" />
+              80/20 Clinical Analytics
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { label: 'Role Alignment', value: '100%', icon: <Users className="w-3 h-3" /> },
+                { label: 'Token Efficiency', value: '+85%', icon: <Zap className="w-3 h-3" /> },
+                { label: 'P0 Identified', value: '9/9', icon: <Target className="w-3 h-3" /> },
+                { label: 'Logic Entropy', value: 'Minimal', icon: <Shield className="w-3 h-3" /> },
+              ].map((stat) => (
+                <div key={stat.label} className="bg-slate-900/30 border border-white/5 p-3 rounded-lg space-y-1">
+                  <div className="flex items-center gap-2 text-slate-600">
+                    {stat.icon}
+                    <span className="text-[9px] font-bold tracking-wider">{stat.label}</span>
+                  </div>
+                  <div className="text-xs font-mono text-slate-300">{stat.value}</div>
                 </div>
               ))}
             </div>
@@ -165,68 +215,118 @@ export default function App() {
 
         {/* Right Column: Output */}
         <div className="lg:col-span-8 flex flex-col min-h-[600px]">
-          {files.length === 0 && !isGenerating ? (
-            <div className="flex-1 flex flex-col items-center justify-center border border-dashed border-slate-800 rounded-lg bg-slate-900/20">
-              <Terminal className="w-8 h-8 text-slate-700 mb-4" />
-              <p className="text-sm text-slate-500">等待輸入專案定義...</p>
-            </div>
-          ) : isGenerating ? (
-            <div className="flex-1 flex flex-col items-center justify-center border border-slate-800 rounded-lg bg-slate-900/20">
-              <Loader2 className="w-8 h-8 text-slate-600 animate-spin mb-4" />
-              <p className="text-sm text-slate-400 font-mono animate-pulse">正在合成專案架構...</p>
-            </div>
-          ) : (
-            <div className="flex-1 flex flex-col border border-slate-800 rounded-lg bg-slate-950 overflow-hidden shadow-2xl shadow-black/50">
-              {/* File Tabs */}
-              <div className="flex items-center justify-between border-b border-slate-800 bg-slate-900/50">
-                <div className="flex overflow-x-auto scrollbar-hide">
-                  {files.map((file) => (
-                    <button
-                      key={file.name}
-                      onClick={() => setActiveFile(file.name)}
-                      className={`flex items-center gap-2 px-4 py-3 text-xs font-mono whitespace-nowrap border-r border-slate-800 transition-all ${
-                        activeFile === file.name
-                          ? 'bg-slate-950 text-slate-100 border-b-transparent shadow-[inset_0_2px_0_0_rgba(255,255,255,0.1)]'
-                          : 'text-slate-500 hover:text-slate-300 hover:bg-slate-900'
-                      }`}
-                    >
-                      {getFileIcon(file.name)}
-                      {file.name}
-                    </button>
-                  ))}
+          <AnimatePresence mode="wait">
+            {files.length === 0 && !isGenerating ? (
+              <motion.div 
+                key="empty"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex-1 flex flex-col items-center justify-center border border-dashed border-white/5 rounded-2xl bg-slate-900/10"
+              >
+                <div className="w-16 h-16 rounded-full bg-slate-900/40 flex items-center justify-center mb-6 border border-white/5 shadow-inner">
+                  <Terminal className="w-6 h-6 text-slate-700" />
                 </div>
-                <div className="px-4 flex-shrink-0">
-                  <button
-                    onClick={handleDownloadZip}
-                    className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-slate-300 bg-slate-800 hover:bg-slate-700 hover:text-slate-100 rounded transition-colors"
-                    title="下載 ZIP 壓縮檔"
-                  >
-                    <Download className="w-3.5 h-3.5" />
-                    <span>下載全部</span>
-                  </button>
+                <p className="text-sm text-slate-600 font-medium tracking-wide">等待臨床數據輸入...</p>
+                <div className="mt-4 flex gap-2">
+                   {[1,2,3].map(i => <div key={i} className="w-1 h-1 rounded-full bg-slate-800" />)}
                 </div>
-              </div>
-              
-              {/* File Content */}
-              <div className="flex-1 overflow-y-auto p-6 bg-slate-950">
-                <AnimatePresence mode="wait">
-                  {files.map((file) => 
-                    activeFile === file.name && (
-                      <motion.div
+              </motion.div>
+            ) : isGenerating ? (
+              <motion.div 
+                key="generating"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex-1 flex flex-col items-center justify-center border border-white/5 rounded-2xl bg-slate-900/10 overflow-hidden"
+              >
+                <div className="relative w-24 h-24 mb-8">
+                  <motion.div 
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-0 rounded-full border-2 border-dashed border-emerald-500/20"
+                  />
+                  <div className="absolute inset-4 rounded-full border border-emerald-500/40 animate-pulse flex items-center justify-center bg-emerald-500/5">
+                    <Loader2 className="w-6 h-6 text-emerald-500/60 animate-spin" />
+                  </div>
+                </div>
+                <p className="text-xs text-slate-400 font-mono tracking-[0.3em] uppercase animate-pulse">Synthesizing DNA...</p>
+              </motion.div>
+            ) : (
+              <motion.div 
+                key="output"
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="flex-1 flex flex-col border border-white/10 rounded-2xl bg-slate-950/50 backdrop-blur-md overflow-hidden shadow-3xl shadow-black"
+              >
+                {/* File Tabs */}
+                <div className="flex items-center justify-between border-b border-white/5 bg-slate-900/30 px-2">
+                  <div className="flex overflow-x-auto scrollbar-hide py-1">
+                    {files.map((file) => (
+                      <button
                         key={file.name}
-                        initial={{ opacity: 0, y: 5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -5 }}
-                        transition={{ duration: 0.2 }}
+                        onClick={() => setActiveFile(file.name)}
+                        className={`group flex items-center gap-2.5 px-5 py-3.5 text-[11px] font-bold tracking-tight whitespace-nowrap transition-all relative ${
+                          activeFile === file.name
+                            ? 'text-emerald-400'
+                            : 'text-slate-500 hover:text-slate-300'
+                        }`}
                       >
-                        <FileViewer file={file} />
-                      </motion.div>
-                    )
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
-          )}
+                        {getFileIcon(file.name)}
+                        <span className="relative z-10">{file.name}</span>
+                        {activeFile === file.name && (
+                          <motion.div 
+                            layoutId="activeTab"
+                            className="absolute bottom-0 left-0 right-0 h-[2px] bg-emerald-500/80 shadow-[0_-2px_8px_rgba(16,185,129,0.3)]"
+                          />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="pr-4 py-1">
+                    <button
+                      onClick={handleDownloadZip}
+                      className="flex items-center gap-2 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-slate-300 bg-slate-900/50 hover:bg-slate-800 hover:text-white rounded-lg border border-white/5 transition-all active:scale-95 shadow-lg"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>Export Repo</span>
+                    </button>
+                  </div>
+                </div>
+                
+                {/* File Content */}
+                <div className="flex-1 overflow-y-auto p-8 custom-scrollbar bg-slate-950/50">
+                  <AnimatePresence mode="wait">
+                    {files.map((file) => 
+                      activeFile === file.name && (
+                        <motion.div
+                          key={file.name}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.3, ease: "easeOut" }}
+                        >
+                          <FileViewer file={file} />
+                        </motion.div>
+                      )
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                <div className="px-8 py-4 border-t border-white/5 bg-slate-900/20 flex items-center justify-between text-[10px] font-mono text-slate-600">
+                  <div className="flex items-center gap-4">
+                    <span>STRUCTURE: 628SP ALPHA</span>
+                    <span className="w-1 h-1 rounded-full bg-slate-800" />
+                    <span>ENCODING: UTF-8</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Shield className="w-3 h-3" />
+                    SYSTEM STABLE
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </main>
     </div>
