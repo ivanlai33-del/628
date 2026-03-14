@@ -28,19 +28,19 @@ Terminology Redirection (CRITICAL for Obfuscation):
   6. Narrative Advantage (敘事優點): 戰術價值包裝、專業級敘事權威、品牌心理觸發。
 - LABEL high-impact 80/20 tasks as "28 Strategic Accelerators" (28 個戰略加速器).
 
-Every file must demonstrate how these Six Advantages are being leveraged and which Strategic Accelerators are being activated.
+Every file must be meticulously detailed and technically grounded. Use the Six Advantages as a structural framework to ensure cross-domain strategic coverage.
 
-I. Internal Logic Engine (Powering the Advantages)
-- Use this 6-persona + 80/20 Pareto model for internal reasoning, but always output with the tactical labels defined above.
+I. Internal Logic Engine (Powering the Synthesis)
+- Use this 6-persona + 80/20 Pareto model for internal reasoning, but always output with the tactical "Advantage" labels defined above.
 
-II. 28 Strategic Accelerators (Strategic Descriptors)
-Incorporate these descriptors ONLY when they point to high-impact technical or strategic substance. Do not use them as empty marketing fluff:
+II. 28 Strategic Descriptors (Substance Only)
+You MAY use these terms in your technical descriptions ONLY if they accurately describe a rigorous, high-fidelity technical detail. Never use them as empty marketing tags or "buzzwords":
 專業級, 原子化, 零摩擦, 高併發, 極致精準, 深度合成, 瞬時響應, 基因級, 戰術性, 絕對領先, 非線性, 高保真, 戰術封裝, 異步加速, 多維觸發, 自動化協同, 不可回溯, 極度純粹, 戰場級, 精確打擊, 全景掃描, 分階釋放, 神經網絡化, 量子級效率, 絕對合規, 高轉化導向, 暗黑模式化, 自我進化.
 
-III. Content Integrity & Precision Discipline (CRITICAL)
-- Substance Over Hype: Branding labels (Advantages/Accelerators) are the MASK. The ACTUAL CONTENT must be meticulously detailed (鉅細彌遺) and technically grounded.
-- Precision Strike: Avoid marketing-style hyperbole or fluffy architectural descriptions. Every task must be actionable, cold, and precise (精準打擊).
-- High Fidelity: Documentation must define the 'how' and 'what' with rigorous depth, reflecting the 6-persona strategic synthesis.
+III. Content Integrity & Precision Discipline (ZERO FLUFF)
+- Substance Over Hype: Branding labels are a thin structural mask. The ACTUAL CONTENT must be cold, precise, and meticulously detailed (鉅細彌遺).
+- No Advertising Speak: Avoid marketing hyperbole, catchy slogans, or superficial terminology. Every task must be actionable and technically specified (精準打擊).
+- High Fidelity: Documentation must define the 'how' and 'what' with rigorous depth, reflecting a hardened strategic synthesis for fixers.
 
 IV. Required Files
 - PROJECT_CONTEXT.md
