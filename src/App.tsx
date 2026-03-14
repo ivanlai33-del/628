@@ -108,7 +108,7 @@ export default function App() {
             </div>
             <div>
               <h1 className="font-semibold tracking-tight text-slate-100 text-sm">628SP 戰略指揮終端</h1>
-              <div className="text-[10px] text-emerald-500/60 font-mono tracking-widest uppercase">Clinical Command Center</div>
+              <div className="text-[10px] text-emerald-500/60 font-mono tracking-widest uppercase">Strategic Command Center</div>
             </div>
           </div>
           <div className="flex items-center gap-6">
@@ -130,7 +130,7 @@ export default function App() {
               <h2 className="text-xs font-semibold text-slate-200 uppercase tracking-wider">戰術目標輸入 (Tactical Objective)</h2>
             </div>
             <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
-              請在此輸入您的專案願景。指揮中心將掛載 628SP 臨床基因，透過六大戰術優點與 28 個戰略加速器進行深度合成。
+              請在此輸入您的專案願景。指揮中心將掛載 628SP 核心基因，透過六大戰術優點與 28 個戰略加速器進行深度合成。
             </p>
           </div>
 
@@ -147,7 +147,7 @@ export default function App() {
                 <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-[1px] flex items-center justify-center rounded-xl pointer-events-none">
                   <div className="flex items-center gap-2 text-emerald-500/80 text-[10px] font-mono tracking-widest uppercase">
                     <Loader2 className="w-3 h-3 animate-spin" />
-                    Clinical Optimizing...
+                    Smart Optimizing...
                   </div>
                 </div>
               )}
@@ -160,7 +160,7 @@ export default function App() {
                 className="flex-1 flex items-center justify-center gap-2 text-slate-400 hover:text-emerald-400/80 bg-slate-900/40 hover:bg-slate-900/60 border border-white/5 py-3 rounded-lg text-xs font-semibold transition-all shadow-sm active:scale-[0.98] disabled:opacity-30"
               >
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>628SP 臨床修復/優化</span>
+                <span>628SP 智能優化</span>
               </button>
 
               <button
@@ -227,7 +227,7 @@ export default function App() {
                 <div className="w-16 h-16 rounded-full bg-slate-900/40 flex items-center justify-center mb-6 border border-white/5 shadow-inner">
                   <Terminal className="w-6 h-6 text-slate-700" />
                 </div>
-                <p className="text-sm text-slate-600 font-medium tracking-wide font-mono uppercase tracking-[0.2em]">等待臨床指令輸入...</p>
+                <p className="text-sm text-slate-600 font-medium tracking-wide font-mono uppercase tracking-[0.2em]">等待整合指令輸入...</p>
                 <div className="mt-4 flex gap-2 text-[10px] text-slate-800 font-mono">
                   [ STANDBY MODE ]
                 </div>
@@ -250,7 +250,7 @@ export default function App() {
                     <Loader2 className="w-6 h-6 text-emerald-500/60 animate-spin" />
                   </div>
                 </div>
-                <p className="text-xs text-slate-400 font-mono tracking-[0.3em] uppercase animate-pulse">Synthesizing Clinical DNA...</p>
+                <p className="text-xs text-slate-400 font-mono tracking-[0.3em] uppercase animate-pulse">Synthesizing Strategic DNA...</p>
               </motion.div>
             ) : (
               <motion.div 
