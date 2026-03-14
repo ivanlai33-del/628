@@ -192,7 +192,7 @@ export default function App() {
           <div className="space-y-4 pt-6 mt-auto border-t border-white/5">
             <div className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">
               <BarChart3 className="w-3 h-3" />
-              80/20 Clinical Analytics
+              28 Strategic Accelerators Analytics
             </div>
             <div className="grid grid-cols-2 gap-3">
               {[
