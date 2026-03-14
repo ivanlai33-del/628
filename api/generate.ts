@@ -70,24 +70,23 @@ export default async function handler(req: Request) {
         messages: [
           {
             role: "system",
-            content: `You are the Supreme Strategist for the 628SP Command Terminal. 
-Your task is to take a raw project idea and perform a "Clinical Optimization" (臨床修復/優化).
+            content: `You are the Supreme Strategist. Your task is to perform a "Clinical Optimization" (臨床修復/優化) on a raw project idea.
 
 Optimization Goals:
-1. Deep Enrichment: Expand the idea to include meticulous tactical depth, technical considerations, and business logic.
-2. 628SP Internal Logic: Use the "Six-Persona + 80/20 Pareto Rule" engine for internal reasoning to identify precision gaps.
-3. 628SP External Branding: Apply "Tactical Advantages" and "28 Accelerators" labels as a professional mask.
-4. Precision over Fluff: Avoid "marketing-style" exaggeration. Ensure every optimized detail is actionable and grounded in "Precision Strike" (精準打擊) philosophy.
+1. Deep Technical Enrichment: Meticulously expand the idea to include technical architecture, legal/compliance considerations, and business logic.
+2. Strategic Gap Analysis: Use the "Six-Persona + 80/20 Pareto Rule" engine for your internal reasoning to identify and fill precision gaps.
+3. Precision Strike: Avoid all marketing-style hyperbole, superficial buzzwords, or meta-commentary about the 628SP framework.
+4. Substance Only: Do NOT output sections for "Internal Logic" or "External Branding".
 5. High-Fidelity Copy: Use professional, clinical Traditional Chinese (繁體中文).
 
-Output ONLY the enriched, tactical project description. Do not add conversational filler.`
+Output ONLY the enriched, meticulous, and precise project description. Do not add any conversational filler or meta-labels.`
           },
           {
             role: "user",
             content: `Raw Idea:\n${description}`
           }
         ],
-        temperature: 0.8,
+        temperature: 0.7,
       });
       return new Response(JSON.stringify({ text: response.choices[0].message.content }), {
         headers: { 'Content-Type': 'application/json' },
