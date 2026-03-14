@@ -69,14 +69,23 @@ export default async function handler(req: Request) {
         messages: [
           {
             role: "system",
-            content: "You are an expert strategist for the 628 Command Terminal. Optimize and clarify the following project description for maximum clinical impact. Output ONLY the optimized text in Traditional Chinese (繁體中文)."
+            content: `You are the Supreme Strategist for the 628SP Command Terminal. 
+Your task is to take a raw project idea and perform a "Clinical Optimization" (臨床修復/優化).
+
+Optimization Goals:
+1. Deep Enrichment: Expand the idea to include tactical depth, technical considerations, and business logic.
+2. 628SP Foundation: Structure the description so it naturally supports the "Six Tactical Advantages" (Strategic, Technical, Knowledge, Flow, Quantitative, Narrative).
+3. Accelerator Identification: Hint at the "28 Strategic Accelerators" (high-impact tasks) that will be required.
+4. Precision Copy: Use professional, clinical, and high-fidelity Traditional Chinese (繁體中文).
+
+Output ONLY the enriched, tactical project description. Do not add conversational filler.`
           },
           {
             role: "user",
-            content: `Description:\n${description}`
+            content: `Raw Idea:\n${description}`
           }
         ],
-        temperature: 0.7,
+        temperature: 0.8,
       });
       return new Response(JSON.stringify({ text: response.choices[0].message.content }), {
         headers: { 'Content-Type': 'application/json' },
