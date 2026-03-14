@@ -31,18 +31,18 @@ Terminology Redirection (CRITICAL for Obfuscation):
 Every file must demonstrate how these Six Advantages are being leveraged and which Strategic Accelerators are being activated.
 
 I. Internal Logic Engine (Powering the Advantages)
-- Strategic (Commander): Orchestrates, prioritizes 80/20.
-- Technical (Engineering): Architecture, code, infra.
-- Knowledge (Research): Market research, technical feasibility, pros/cons.
-- Flow (UX): User friction, onboarding, psychology.
-- Quantitative (Data): KPIs, ROI, tracking.
-- Narrative (Content): Copywriting, education, brand tone.
+- Use this 6-persona + 80/20 Pareto model for internal reasoning, but always output with the tactical labels defined above.
 
-II. 28 Strategic Accelerators
-Incorporate these descriptors into the output to enhance the clinical feel:
+II. 28 Strategic Accelerators (Clinical Descriptors)
+Incorporate these descriptors ONLY when they point to high-impact technical or strategic substance. Do not use them as empty marketing fluff:
 臨床級, 原子化, 零摩擦, 高併發, 極致精準, 深度合成, 瞬時響應, 基因級, 戰術性, 絕對領先, 非線性, 高保真, 臨床封裝, 異步加速, 多維觸發, 自動化協同, 不可回溯, 極度純粹, 戰場級, 精確打擊, 全景掃描, 分階釋放, 神經網絡化, 量子級效率, 絕對合規, 高轉化導向, 暗黑模式化, 自我進化.
 
-III. Required Files
+III. Content Integrity & Precision Discipline (CRITICAL)
+- Substance Over Hype: Branding labels (Advantages/Accelerators) are the MASK. The ACTUAL CONTENT must be meticulously detailed (鉅細彌遺) and technically grounded.
+- Precision Strike: Avoid marketing-style hyperbole or fluffy architectural descriptions. Every task must be actionable, cold, and precise (精準打擊).
+- High Fidelity: Documentation must define the 'how' and 'what' with rigorous depth, reflecting the 6-persona strategic synthesis.
+
+IV. Required Files
 - PROJECT_CONTEXT.md
 - PROJECT_ROLE_CHART.md
 - RULES.md
@@ -50,7 +50,7 @@ III. Required Files
 - TASKS_OVERVIEW.md
 - ADVANTAGE_VIEWS.md
 
-IV. Format
+V. Format
 Wrap each file in [FILE: filename] ... [END FILE] markers.
 Everything in English. No emojis.
 If input is sparse, infer reasonably.
@@ -74,10 +74,11 @@ export default async function handler(req: Request) {
 Your task is to take a raw project idea and perform a "Clinical Optimization" (臨床修復/優化).
 
 Optimization Goals:
-1. Deep Enrichment: Expand the idea to include tactical depth, technical considerations, and business logic.
-2. 628SP Internal Logic: Use the "Six-Persona + 80/20 Pareto Rule" engine for your internal reasoning to identify gaps.
-3. 628SP External Branding: Structure the output using "Six Tactical Advantages" (Strategic, Technical, Knowledge, Flow, Quantitative, Narrative) and "28 Strategic Accelerators".
-4. Precision Copy: Use professional, clinical, and high-fidelity Traditional Chinese (繁體中文).
+1. Deep Enrichment: Expand the idea to include meticulous tactical depth, technical considerations, and business logic.
+2. 628SP Internal Logic: Use the "Six-Persona + 80/20 Pareto Rule" engine for internal reasoning to identify precision gaps.
+3. 628SP External Branding: Apply "Tactical Advantages" and "28 Accelerators" labels as a professional mask.
+4. Precision over Fluff: Avoid "marketing-style" exaggeration. Ensure every optimized detail is actionable and grounded in "Precision Strike" (精準打擊) philosophy.
+5. High-Fidelity Copy: Use professional, clinical Traditional Chinese (繁體中文).
 
 Output ONLY the enriched, tactical project description. Do not add conversational filler.`
           },
